@@ -2,7 +2,7 @@
 
 An interactive scrollytelling piece that follows a single day's ride along the J line — from Bed-Stuy, Brooklyn into Lower Manhattan. As you scroll, a train dot travels down the line and stops at each station, where a short, personal note about that part of the day unfolds.
 
-🔗 **Portfolio / case study:** [sophia-ux.framer.website](https://sophia-ux.framer.website/)
+**Live demo → [j-train-sophia.vercel.app](https://j-train-sophia.vercel.app/)**
 
 ## The idea
 
