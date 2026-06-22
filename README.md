@@ -47,4 +47,4 @@ README.md
 
 ## Deployment
 
-Hosted on Vercel; pushes to `main` deploy automatically.
+Hosted on Vercel.
