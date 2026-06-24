@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A ride on the J train</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
@@ -461,6 +464,74 @@
     color: #EDE6DA;
   }
 </style>
+<style id="spots-styles">
+  /* ---------- clickable spots ---------- */
+  .rec {
+    cursor: pointer;
+    border-radius: 9px;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 10px;
+    transition: background 0.25s ease;
+  }
+  .rec:hover { background: rgba(184, 116, 61, 0.06); }
+
+  .rec-chevron {
+    display: none;
+    margin-left: 7px;
+    font-size: 11px;
+    color: #B8743D;
+    opacity: 0.65;
+    transition: transform 0.3s ease;
+  }
+  .rec-chevron { display: inline-block; }
+  .rec.rec-open .rec-chevron { transform: rotate(90deg); }
+
+  .rec-detail {
+    height: 0;
+    overflow: hidden;
+    transition: height 360ms cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .rec-detail-inner {
+    padding-top: 16px;
+    padding-bottom: 6px;  /* keep the pill's stroke clear of the drawer's overflow clip */
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+  .rec-where {
+    font-family: 'Geist', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #B6A99A;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rec-where svg { flex: none; }
+  .rec-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .rec-action {
+    font-family: 'Geist', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #EDE6DA;
+    border: 1px solid rgba(184, 116, 61, 0.5);
+    padding: 8px 13px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .rec-action:hover {
+    background: rgba(184, 116, 61, 0.16);
+    border-color: #B8743D;
+  }
+</style>
+
 </head>
 <body>
   <div class="phone-frame">
@@ -641,40 +712,40 @@
       gates: {
         feeling: 'Starting the day in Bed-Stuy',
         recs: [
-          { tag: 'COFFEE', text: 'Botani Cafe on Lewis Ave. Grab a seat outside one of the little tables and enjoy the sun and the local Bed-Stuy area. Order an iced coffee with oat milk and a pastry.' },
-          { tag: 'PIZZA', text: 'Saraghina Pizzeria on Lewis Ave. Enjoy this delicious Neapolitan pizza from a wood-burning oven — one of the best in Brooklyn!' },
-          { tag: 'LIVE MUSIC', text: 'LunÀtico on Halsey St. Eat, drink, listen — this is my absolute favorite bar in the world! Order an IPA and the hummus, and enjoy beautiful live music.' }
+          { tag: 'COFFEE', text: 'Botani Cafe. Grab a seat outside one of the little tables and enjoy the sun and the local Bed-Stuy area. Order an iced coffee with oat milk and a pastry.' },
+          { tag: 'PIZZA', text: 'Saraghina Pizzeria. Enjoy this delicious Neapolitan pizza from a wood-burning oven — one of the best in Brooklyn!' },
+          { tag: 'LIVE MUSIC', text: 'LunÀtico. Eat, drink, listen — this is my absolute favorite bar in the world! Order an IPA and the hummus, and enjoy beautiful live music.' }
         ]
       },
       marcy: {
         feeling: 'My favorite spots',
         recs: [
-          { tag: 'COFFEE', text: 'Devoción on Grand St. They roast in Colombia and ship same-week — order an iced coffee with oat milk, it\u2019s my favorite in the world. Enjoy the beautiful interior design and skylight.' },
-          { tag: 'WALK & VIEW', text: 'Domino Park, west to the water. This wonderfully designed park is truly one of my favorite spots in NYC! You\u2019ll get one of the most beautiful views of the Manhattan skyline. I could stay here and look at the skyline and the shimmering water of the East River for hours.' },
-          { tag: 'SHOP', text: 'LEIF on Grand St. In this small home-and-gift shop, you\u2019ll find the cutest decoration — from little bowls and candles to beautifully designed greeting cards.' }
+          { tag: 'COFFEE', text: 'Devoción. They roast in Colombia and ship same-week — order an iced coffee with oat milk, it\u2019s my favorite in the world. Enjoy the beautiful interior design and skylight.' },
+          { tag: 'WALK & VIEW', text: 'Domino Park. This wonderfully designed park is truly one of my favorite spots in NYC! You\u2019ll get one of the most beautiful views of the Manhattan skyline. I could stay here and look at the skyline and the shimmering water of the East River for hours.' },
+          { tag: 'SHOP', text: 'LEIF. In this small home-and-gift shop, you\u2019ll find the cutest decoration — from little bowls and candles to beautifully designed greeting cards.' }
         ]
       },
       delancey: {
         feeling: 'First stops in the city',
         recs: [
-          { tag: 'SPEAKEASY', text: 'The Back Room on Norfolk St. Shhhh\u2026 my favorite speakeasy brings you back in time. Where, over 100 years ago, people secretly drank out of teacups — the same way they\u2019re served today!' },
-          { tag: 'THAI FOOD', text: 'Wayla on Forsyth St. I absolutely love Thai food! As a traveler, I\u2019ve been to Thailand, and I\u2019m happy to find authentic Thai food inspired by the markets of Bangkok in NYC!' },
-          { tag: 'ROOFTOP VIEW', text: 'Mr. Purple on Orchard St. From the rooftop bar and lounge on the 15th floor of Hotel Indigo, you\u2019ll get a wonderful view over the most beautiful city in the world!' }
+          { tag: 'SPEAKEASY', text: 'The Back Room. Shhhh\u2026 my favorite speakeasy brings you back in time. Where, over 100 years ago, people secretly drank out of teacups — the same way they\u2019re served today!' },
+          { tag: 'THAI FOOD', text: 'Wayla. I absolutely love Thai food! As a traveler, I\u2019ve been to Thailand, and I\u2019m happy to find authentic Thai food inspired by the markets of Bangkok in NYC!' },
+          { tag: 'ROOFTOP VIEW', text: 'Mr. Purple. From the rooftop bar and lounge on the 15th floor of Hotel Indigo, you\u2019ll get a wonderful view over the most beautiful city in the world!' }
         ]
       },
       canal: {
         feeling: 'My slower afternoon',
         recs: [
-          { tag: 'VEGAN FOOD', text: 'Le Botaniste on Grand St. As a vegan, I love to try out new vegan food everywhere I travel! This restaurant was the first organic, plant-based, and carbon-neutral restaurant in NYC.' },
-          { tag: 'GREEN OASIS', text: 'Gilligan\u2019s on W Broadway. This hidden gem feels like a green oasis in the concrete jungle. With so many plants and cozy lounge chairs, it feels like you\u2019re on vacation!' },
-          { tag: 'SHOP', text: 'Roman and Williams Guild on Howard St. With my love for design and decoration, wandering this store and looking at every detail feels like being in a museum.' }
+          { tag: 'VEGAN FOOD', text: 'Le Botaniste. As a vegan, I love to try out new vegan food everywhere I travel! This restaurant was the first organic, plant-based, and carbon-neutral restaurant in NYC.' },
+          { tag: 'GREEN OASIS', text: 'Gilligan\u2019s. This hidden gem feels like a green oasis in the concrete jungle. With so many plants and cozy lounge chairs, it feels like you\u2019re on vacation!' },
+          { tag: 'SHOP', text: 'Roman and Williams Guild. With my love for design and decoration, wandering this store and looking at every detail feels like being in a museum.' }
         ]
       },
       chambers: {
         feeling: 'Last stop of the day, big views',
         recs: [
-          { tag: 'ARCHITECTURE', text: 'Oculus at Greenwich St. As an architecture lover — I hold a bachelor\u2019s in architecture, and Santiago Calatrava is my favorite architect — I love this building. It\u2019s beautiful and magical from the outside and inside, a true eye-catcher in the concrete jungle.' },
-          { tag: 'REST', text: 'City Hall Park at the start of the Brooklyn Bridge. This beautifully designed little green space with its fountain is perfect for taking a rest from the city\u2019s hustle.' },
+          { tag: 'ARCHITECTURE', text: 'Oculus. As an architecture lover — I hold a bachelor\u2019s in architecture, and Santiago Calatrava is my favorite architect — I love this building. It\u2019s beautiful and magical from the outside and inside, a true eye-catcher in the concrete jungle.' },
+          { tag: 'REST', text: 'City Hall Park. This beautifully designed little green space with its fountain is perfect for taking a rest from the city\u2019s hustle.' },
           { tag: 'WALK & VIEW', text: 'Brooklyn Bridge entry. Walking over this bridge, it\u2019s one of those \u2018feels like a movie\u2019 experiences you can have in NYC! With amazing views of the Manhattan skyline, Brooklyn, and the East River.' }
         ]
       }
@@ -1087,5 +1158,75 @@
       bridge.classList.add('lookup-ready');
     });
   </script>
+<script>
+(function () {
+  // ---------- clickable spots: reveal location + map link ----------
+  const spotInfo = {
+    gates: {
+      'COFFEE':     { place: 'Botani Cafe',         area: 'Lewis Ave · Bed-Stuy, Brooklyn' },
+      'PIZZA':      { place: 'Saraghina Pizzeria',  area: 'Lewis Ave · Bed-Stuy, Brooklyn' },
+      'LIVE MUSIC': { place: 'LunÀtico',            area: 'Halsey St · Bed-Stuy, Brooklyn' }
+    },
+    marcy: {
+      'COFFEE':      { place: 'Devoción',   area: 'Grand St · Williamsburg, Brooklyn', addr: 'Devoción, 148 Grand St, Brooklyn, NY 11249, United States' },
+      'WALK & VIEW': { place: 'Domino Park', area: 'Williamsburg waterfront, Brooklyn', url: 'https://www.google.com/maps/place/Domino+Park/@40.7143503,-73.9677842,18.24z/data=!4m6!3m5!1s0x89c25941934bb85f:0x486aa5dc8e5c1416!8m2!3d40.7148803!4d-73.967851!16s%2Fg%2F11g0mh05k0?entry=ttu&g_ep=EgoyMDI2MDYyMS4wIKXMDSoASAFQAw%3D%3D' },
+      'SHOP':        { place: 'LEIF',        area: 'Grand St · Williamsburg, Brooklyn', url: 'https://www.google.com/maps/place/LEIF+%E2%80%94+Home+%26+Gift/@40.7156145,-73.9661184,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259610ea68867:0xd82d048f1e32ae25!8m2!3d40.7156145!4d-73.9635435!16s%2Fg%2F11c1pk2z0y?entry=ttu&g_ep=EgoyMDI2MDYyMS4wIKXMDSoASAFQAw%3D%3D' }
+    },
+    delancey: {
+      'SPEAKEASY':    { place: 'The Back Room', area: 'Norfolk St · Lower East Side' },
+      'THAI FOOD':    { place: 'Wayla',         area: 'Forsyth St · Lower East Side' },
+      'ROOFTOP VIEW': { place: 'Mr. Purple',    area: 'Orchard St · Lower East Side' }
+    },
+    canal: {
+      'VEGAN FOOD':  { place: 'Le Botaniste',              area: 'Grand St · SoHo', url: 'https://www.google.com/maps/place/Le+Botaniste/@40.7204931,-74.0002294,17z/data=!4m15!1m8!3m7!1s0x89c2598978a8e6bb:0xbda2c9301f96c3cf!2s127+Grand+St,+New+York,+NY+10013,+USA!3b1!8m2!3d40.7204931!4d-74.0002294!16s%2Fg%2F11q2x8tfk9!3m5!1s0x89c2598978a8e6bb:0xdfb7092e1feeb899!8m2!3d40.7204931!4d-74.0002294!16s%2Fg%2F11gbl3wvs0?entry=ttu&g_ep=EgoyMDI2MDYyMS4wIKXMDSoASAFQAw%3D%3D' },
+      'GREEN OASIS': { place: "Gilligan's",                area: 'W Broadway · SoHo' },
+      'SHOP':        { place: 'Roman and Williams Guild',  area: 'Howard St · SoHo' }
+    },
+    chambers: {
+      'ARCHITECTURE': { place: 'Oculus Westfield WTC', area: 'Greenwich St · Financial District', url: 'https://www.google.com/maps/place/Oculus+World+Trade+Center/@40.7118042,-74.0144247,17z/data=!3m2!4b1!5s0x89c25a19f1335beb:0xad0170a731cdc4b0!4m6!3m5!1s0x89c25b3ec115fee1:0x3379bef08da10ec1!8m2!3d40.7118042!4d-74.0118498!16s%2Fg%2F11hhr3hxg9?entry=ttu&g_ep=EgoyMDI2MDYyMS4wIKXMDSoASAFQAw%3D%3D' },
+      'REST':         { place: 'City Hall Park',       area: 'Lower Manhattan' },
+      'WALK & VIEW':  { place: 'Brooklyn Bridge',      area: 'Manhattan entrance' }
+    }
+  };
+
+  const pinSVG = `<svg width='13' height='13' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M12 22s7-7.6 7-13a7 7 0 1 0-14 0c0 5.4 7 13 7 13Z' stroke='#B8743D' stroke-width='2'/><circle cx='12' cy='9' r='2.5' fill='#B8743D'/></svg>`;
+  const norm = (s) => s.replace(/[^A-Za-z& ]/g, '').replace(/\s+/g, ' ').trim().toUpperCase();
+
+  document.querySelectorAll('.stop').forEach((stopEl) => {
+    const info = spotInfo[stopEl.dataset.stop];
+    if (!info) return;
+    stopEl.querySelectorAll('.rec').forEach((rec) => {
+      const tagEl = rec.querySelector('.tag');
+      if (!tagEl) return;
+      const matchKey = Object.keys(info).find((k) => norm(k) === norm(tagEl.textContent));
+      if (!matchKey) return;
+      const data = info[matchKey];
+      const mapUrl = data.url
+        || 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(data.addr || `${data.place}, New York, NY`);
+
+      tagEl.insertAdjacentHTML('beforeend', `<span class="rec-chevron">›</span>`);
+
+      const detail = document.createElement('div');
+      detail.className = 'rec-detail';
+      detail.innerHTML = `
+        <div class="rec-detail-inner">
+          <div class="rec-where">${pinSVG}<span>${data.area}</span></div>
+          <div class="rec-actions">
+            <a class="rec-action" target="_blank" rel="noopener"
+               href="${mapUrl}">View map ↗</a>
+          </div>
+        </div>`;
+      rec.appendChild(detail);
+
+      rec.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        const open = rec.classList.toggle('rec-open');
+        detail.style.height = open ? detail.firstElementChild.scrollHeight + 'px' : '0px';
+      });
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
